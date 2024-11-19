@@ -25,3 +25,27 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+---
+
+# Architecture goal
+
+```json
+src/
+├── app/
+│   ├── core/               // Infrastructure, services, global interfaces
+│   │   ├── repositories/   // Concrete implementations (e.g., Supabase)
+│   │   ├── services/       // Angular services for API, storage, etc.
+│   │   └── guards/         // AuthGuard, etc.
+│   ├── domain/             // Pure business logic
+│   │   ├── models/         // Models: Card, Collection, Deck
+│   │   ├── interfaces/     // Interfaces: CardRepository, DeckRepository
+│   │   └── use-cases/      // Use cases: CreateDeck, FilterCards
+│   ├── features/           // Autonomous functional modules
+│   │   ├── collection/     // Collection page
+│   │   ├── deck-builder/   // Deck creation page
+│   │   └── cards/          // Page displaying all cards
+│   ├── shared/             // Reusable components, directives, pipes
+│   └── app.component.ts    // Root component
+
+```
