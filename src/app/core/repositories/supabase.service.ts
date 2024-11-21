@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
+  AuthError,
   AuthResponse,
   createClient,
   SupabaseClient,
 } from '@supabase/supabase-js';
-import { from, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -20,20 +20,27 @@ export class SupabaseService {
     );
   }
 
-  signUpWithEmail(
+  signUpEmail(
     email: string,
     password: string,
     username: string
-  ): Observable<AuthResponse> {
-    const promise = this.supabase.auth.signUp({
+  ): Promise<AuthResponse> {
+    return this.supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: {
-          username,
-        },
-      },
+      options: { data: { username } },
     });
-    return from(promise);
+  }
+
+  signInEmail(email: string, password: string): Promise<AuthResponse> {
+    return this.supabase.auth.signInWithPassword({ email, password });
+  }
+
+  signOut(): Promise<{ error: AuthError | null }> {
+    return this.supabase.auth.signOut();
+  }
+
+  getCurrentUser() {
+    return this.supabase.auth.getUser();
   }
 }

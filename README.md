@@ -28,24 +28,23 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ---
 
-# Architecture goal
+## Architecture goal
 
-```json
+```
 src/
 ├── app/
-│   ├── core/               // Infrastructure, services, global interfaces
-│   │   ├── repositories/   // Concrete implementations (e.g., Supabase)
-│   │   ├── services/       // Angular services for API, storage, etc.
-│   │   └── guards/         // AuthGuard, etc.
-│   ├── domain/             // Pure business logic
-│   │   ├── models/         // Models: Card, Collection, Deck
-│   │   ├── interfaces/     // Interfaces: CardRepository, DeckRepository
-│   │   └── use-cases/      // Use cases: CreateDeck, FilterCards
-│   ├── features/           // Autonomous functional modules
-│   │   ├── collection/     // Collection page
-│   │   ├── deck-builder/   // Deck creation page
-│   │   └── cards/          // Page displaying all cards
-│   ├── shared/             // Reusable components, directives, pipes
+│   ├── core/                   // Infrastructure, services, global interfaces
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   └── guards/
+│   ├── domain/              // Pure business logic
+│   │   ├── models/         // Models: Card, Collection, Deck...
+│   │   ├── interfaces/     // Interfaces: CardRepository, DeckRepository...
+│   │   └── use-cases/      // Use cases: CreateDeck, FilterCards...
+│   ├── features/
+│   │   ├── collection/
+│   │   ├── deck-builder/
+│   │   └── cards/
+│   ├── shared/                   // Reusable components, directives, pipes
 │   └── app.component.ts    // Root component
-
 ```

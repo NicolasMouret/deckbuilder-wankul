@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SupabaseService } from './core/repositories/supabase.service';
 
 @Component({
   selector: 'app-root',
@@ -12,5 +11,5 @@ import { SupabaseService } from './core/repositories/supabase.service';
 export class AppComponent {
   title = 'deckbuilder-wankul';
 
-  constructor(private readonly supabase: SupabaseService) {}
+  constructor() {}
 }
