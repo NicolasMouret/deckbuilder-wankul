@@ -1,1 +1,37 @@
-<p>sign-in works!</p>
+<div class="flex flex-1 items-center justify-center h-screen">
+  <div
+    class="card shadow-xl mt-16 w-11/12 md:mt-0 md:w-96 border border-base-200"
+  >
+    <div class="card-body">
+      <h2 class="card-title text-center text-2xl font-bold">Se connecter</h2>
+      <form>
+        <div class="form-control">
+          <label for="email" class="label">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="input input-bordered input-info"
+            placeholder="Email"
+          />
+        </div>
+        <div class="form-control">
+          <label for="password" class="label">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="input input-bordered input-info"
+            placeholder="Password"
+          />
+        </div>
+        <button class="btn btn-primary w-full mt-6">Se connecter</button>
+      </form>
+      <div class="divider">Pas encore de compte ?</div>
+      <a href="/sign-up" class="btn btn-secondary w-full">Créer un compte</a>
+      <a href="/reset-password" class="btn btn-ghost w-full"
+        >Mot de passe oublié ?</a
+      >
+    </div>
+  </div>
+</div>
