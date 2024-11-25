@@ -1,10 +1,10 @@
-<div class="navbar shadow-md glass fixed justify-evenly">
+<div class="fixed shadow-md navbar glass justify-evenly">
   <div class="navbar-start w-fit">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
+          class="w-5 h-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -26,17 +26,28 @@
         <li><a role="button" class="btn btn-ghost">Deck builder</a></li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl">Wankul - Le Deck Builder</a>
+    <a class="text-xl btn btn-ghost">Wankul - Le Deck Builder</a>
+    <p>{{ session?.user?.email }}</p>
   </div>
-  <div class="navbar-center hidden lg:flex">
-    <ul class="menu menu-horizontal px-1 space-x-6">
+  <div class="hidden navbar-center lg:flex">
+    <ul class="px-1 space-x-6 menu menu-horizontal">
       <li><a role="button" class="btn btn-ghost">Les cartes</a></li>
       <li><a role="button" class="btn btn-ghost">Ma collection</a></li>
       <li><a role="button" class="btn btn-ghost">Deck builder</a></li>
     </ul>
   </div>
-  <div class="navbar-end w-fit space-x-4">
-    <a class="btn btn-outline btn-primary">Se connecter</a>
-    <a class="btn btn-secondary">Créer un compte</a>
+  @if (!session) {
+  <div class="space-x-4 navbar-end w-fit">
+    <a routerLink="/sign-in" class="btn btn-outline btn-primary"
+      >Se connecter</a
+    >
+    <a routerLink="/sign-up" class="btn btn-secondary">Créer un compte</a>
   </div>
+  } @else {
+  <div class="navbar-end w-fit">
+    <button (click)="signOut()" role="button" class="btn btn-ghost">
+      Déconnexion
+    </button>
+  </div>
+  }
 </div>
