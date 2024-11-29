@@ -1,3 +1,14 @@
 <div class="flex flex-col items-center justify-center flex-1 h-screen">
-  <div>{{ session?.user }}</div>
+  @if (!session) {
+  <div class="text-3xl font-bold">Pas de session</div>
+  } @else {
+  <div class="text-3xl font-bold">
+    {{ session.user.user_metadata["username"] }}
+  </div>
+  }
+  <div>
+    <button class="btn btn-primary" (click)="applyFilters(filters)">
+      Filtrer
+    </button>
+  </div>
 </div>

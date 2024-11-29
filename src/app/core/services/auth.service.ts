@@ -1,7 +1,7 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AuthResponse, Session } from '@supabase/supabase-js';
 import { from, Observable } from 'rxjs';
-import { SupabaseService } from '../repositories/supabase.service';
+import { SupabaseAuthRepository } from '../supabase/auth.supabase';
 
 export type CurrentUser = {
   email: string;
@@ -22,10 +22,9 @@ export interface AuthInterface {
   providedIn: 'root',
 })
 export class AuthService implements AuthInterface {
-  sessionSignal = signal<Session | null>(null);
   _session: Session | null = null;
 
-  constructor(private readonly authRepository: SupabaseService) {
+  constructor(private readonly authRepository: SupabaseAuthRepository) {
     this._session = this.authRepository.session;
   }
 
