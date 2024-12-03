@@ -1,0 +1,7 @@
+<div
+  class="grid grid-cols-1 gap-4 transition-all duration-300 auto-rows-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+>
+  @for (card of filteredCards; track card.id) {
+  <app-card [illustrationUrl]="card.illustration_url" />
+  }
+</div>

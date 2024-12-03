@@ -1,4 +1,6 @@
-<div class="fixed shadow-md navbar glass justify-evenly">
+<div
+  class="fixed shadow-md navbar bg-base-100/80 backdrop-blur-sm justify-evenly"
+>
   <div class="navbar-start w-fit">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -27,7 +29,6 @@
       </ul>
     </div>
     <a class="text-xl btn btn-ghost">Wankul - Le Deck Builder</a>
-    <p>{{ session?.user?.email }}</p>
   </div>
   <div class="hidden navbar-center lg:flex">
     <ul class="px-1 space-x-6 menu menu-horizontal">
@@ -36,18 +37,20 @@
       <li><a role="button" class="btn btn-ghost">Deck builder</a></li>
     </ul>
   </div>
-  @if (!session) {
   <div class="space-x-4 navbar-end w-fit">
+    @if (!session) {
     <a routerLink="/sign-in" class="btn btn-outline btn-primary"
       >Se connecter</a
     >
     <a routerLink="/sign-up" class="btn btn-secondary">Créer un compte</a>
-  </div>
-  } @else {
-  <div class="navbar-end w-fit">
+    } @else {
+    <p>
+      Bienvenue
+      {{ session.user.user_metadata["username"] }} !
+    </p>
     <button (click)="signOut()" role="button" class="btn btn-ghost">
       Déconnexion
     </button>
+    }
   </div>
-  }
 </div>

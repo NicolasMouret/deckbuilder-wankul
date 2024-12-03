@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -15,15 +15,15 @@ import { AuthService } from '../../core/services/auth.service';
   templateUrl: './sign-up.component.html',
 })
 export class SignUpComponent {
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+
   signUpForm: FormGroup;
   formSubmitted = signal<Boolean>(false);
   errorMessage: string | null = null;
 
-  constructor(
-    private router: Router,
-    private fb: FormBuilder,
-    private authService: AuthService
-  ) {
+  constructor() {
     this.signUpForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
