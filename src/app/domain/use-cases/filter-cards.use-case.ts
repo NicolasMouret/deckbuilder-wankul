@@ -1,15 +1,22 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { CardService } from '../../application/services/card.service';
-import { Card, CardFilters, Effects, Gems } from '../models/card.model';
+import {
+  Card,
+  CardFilters,
+  Effects,
+  EffectsContentNames,
+  Gems,
+  GemsContentNames,
+} from '../models/card.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterCardsUseCase {
-  constructor(private cardService: CardService) {}
+  cardService = inject(CardService);
 
-  execute(filters: CardFilters): Card[] {
-    const cards = this.cardService.getAllCards();
+  async execute(filters: CardFilters): Promise<Card[]> {
+    const cards = await this.cardService.getAllCards();
     return cards.filter((card) => {
       return (
         (!filters.name ||
@@ -33,17 +40,17 @@ export class FilterCardsUseCase {
 
   private matchEffects(
     cardEffects: Effects[],
-    filterEffects: string[]
+    filterEffects: EffectsContentNames[]
   ): boolean {
-    const uiToDbEffects: Record<string, Effects> = {
-      'Effet permanent': 'permanent',
-      Combo: 'combo',
-      'Fait piocher': 'draw',
-      Scoreur: 'scorer',
-      'Effet sub': 'sub',
-      'Fait défausser un personnage adverse (max force 1)': 'discard_max_1',
-      'Fait défausser un personnage adverse (max force 2)': 'discard_max_2',
-      'Fait défausser un personnage adverse (max force 3)': 'discard_max_3',
+    const uiToDbEffects: Record<EffectsContentNames, Effects> = {
+      [EffectsContentNames.EffetPermanent]: 'permanent',
+      [EffectsContentNames.Combo]: 'combo',
+      [EffectsContentNames.FaitPiocher]: 'draw',
+      [EffectsContentNames.Scoreur]: 'scorer',
+      [EffectsContentNames.EffetSub]: 'sub',
+      [EffectsContentNames.FaitDefausserMax1]: 'discard_max_1',
+      [EffectsContentNames.FaitDefausserMax2]: 'discard_max_2',
+      [EffectsContentNames.FaitDefausserMax3]: 'discard_max_3',
     };
 
     const mappedFilterEffects = filterEffects.map(
@@ -52,12 +59,15 @@ export class FilterCardsUseCase {
     return mappedFilterEffects.every((effect) => cardEffects.includes(effect));
   }
 
-  private matchGems(cardGems: Gems[] | null, filterGems: string[]): boolean {
+  private matchGems(
+    cardGems: Gems[] | null,
+    filterGems: GemsContentNames[]
+  ): boolean {
     if (!cardGems) return false;
 
-    const uiToDbGems: Record<string, Gems> = {
-      Orange: 'orange',
-      Violet: 'purple',
+    const uiToDbGems: Record<GemsContentNames, Gems> = {
+      [GemsContentNames.Orange]: 'orange',
+      [GemsContentNames.Violet]: 'purple',
     };
 
     const mappedFilterGems = filterGems.map((uiGem) => uiToDbGems[uiGem]);

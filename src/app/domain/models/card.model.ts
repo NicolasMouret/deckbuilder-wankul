@@ -21,6 +21,7 @@ export type Card = {
   artist: string;
   illustration_url: string;
 };
+//_______________________________________
 
 //__NAMES USED IN DB_____________
 
@@ -37,40 +38,26 @@ export type Effects =
 export type Gems = 'orange' | 'purple';
 //_______________________________________
 
-//__NAMES DISPLAYED IN THE UI FOR THE FILTERS
+//__NAMES DISPLAYED IN THE UI FOR THE FILTERS INPUTS
 
-export type EffectsContentNames =
-  | 'Effet permanent'
-  | 'Combo'
-  | 'Fait piocher'
-  | 'Scoreur'
-  | 'Effet sub'
-  | 'Fait défausser un personnage adverse (max force 1)'
-  | 'Fait défausser un personnage adverse (max force 2)'
-  | 'Fait défausser un personnage adverse (max force 3)';
+export enum EffectsContentNames {
+  EffetPermanent = 'Effet Permanent',
+  Combo = 'Combo',
+  FaitPiocher = 'Fait Piocher',
+  Scoreur = 'Scoreur',
+  EffetSub = 'Effet Sub',
+  FaitDefausserMax1 = 'Fait Defausser Max 1',
+  FaitDefausserMax2 = 'Fait Defausser Max 2',
+  FaitDefausserMax3 = 'Fait Defausser Max 3',
+}
 
-export type GemsContentNames = 'Orange' | 'Violet';
-//____________________________________________________________
+export enum GemsContentNames {
+  Orange = 'Orange',
+  Violet = 'Violet',
+}
+//________________________________________________________
 
-//__NAMES MAPPING FROM UI TO DB________________________________
-
-export const contentNameTypeMap: {
-  [key in EffectsContentNames | GemsContentNames]: string;
-} = {
-  'Effet permanent': 'permanent',
-  Combo: 'combo',
-  'Fait piocher': 'draw',
-  Scoreur: 'scorer',
-  'Effet sub': 'sub',
-  'Fait défausser un personnage adverse (max force 1)': 'discard_max_1',
-  'Fait défausser un personnage adverse (max force 2)': 'discard_max_2',
-  'Fait défausser un personnage adverse (max force 3)': 'discard_max_3',
-  Orange: 'orange',
-  Violet: 'purple',
-};
-//____________________________________________________________
-
-//__NAMES MAPPING FROM UI TO DB________________________________
+//__FILTER'S OBJ FOR FILTER USECASE
 
 export type CardFilters = {
   name?: string;
@@ -79,11 +66,11 @@ export type CardFilters = {
   clan?: Clan[];
   cost?: Cost[];
   strength?: number[];
-  effects?: Effects[];
+  effects?: EffectsContentNames[];
   errata?: boolean;
   is_ban?: boolean;
-  gem_open?: Gems[];
-  gem_close?: Gems[];
+  gem_open?: GemsContentNames[];
+  gem_close?: GemsContentNames[];
 };
 
 type Extension = 'Origins' | 'Campus' | 'Battle';

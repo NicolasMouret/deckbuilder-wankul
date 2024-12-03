@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AuthResponse, Session } from '@supabase/supabase-js';
 import { from, Observable } from 'rxjs';
 import { SupabaseAuthRepository } from '../supabase/auth.supabase';
@@ -22,11 +22,8 @@ export interface AuthInterface {
   providedIn: 'root',
 })
 export class AuthService implements AuthInterface {
+  private readonly authRepository = inject(SupabaseAuthRepository);
   _session: Session | null = null;
-
-  constructor(private readonly authRepository: SupabaseAuthRepository) {
-    this._session = this.authRepository.session;
-  }
 
   get session(): Session | null {
     return this._session;

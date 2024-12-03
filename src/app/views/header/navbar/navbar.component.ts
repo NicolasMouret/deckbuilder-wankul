@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Session } from '@supabase/supabase-js';
 import { AuthService } from '../../../core/services/auth.service';
@@ -9,8 +9,10 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
+  private readonly auth = inject(AuthService);
   session: Session | null = null;
-  constructor(private readonly auth: AuthService) {
+
+  constructor() {
     this.session = this.auth.session;
   }
 

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import {
+  createClient,
+  PostgrestError,
+  SupabaseClient,
+} from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { CardRepository } from '../../domain/interfaces/card.repository';
 import { Card } from '../../domain/models/card.model';
@@ -18,9 +22,18 @@ export class SupabaseCardRepository implements CardRepository {
   }
 
   async getAllCards(): Promise<Card[]> {
-    const { data, error } = await this.supabase.from('cards').select('*');
+    const { data, error } = (await this.supabase
+      .from('cards')
+      .select('*')
+      .order('id', { ascending: true })) as {
+      data: Card[] | null;
+      error: PostgrestError | null;
+    };
     if (error) {
       throw new Error(error.message);
+    }
+    if (!data) {
+      return [];
     }
     return data;
   }
