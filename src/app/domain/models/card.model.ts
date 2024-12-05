@@ -23,40 +23,6 @@ export type Card = {
 };
 //_______________________________________
 
-//__NAMES USED IN DB_____________
-
-export type Effects =
-  | 'permanent'
-  | 'combo'
-  | 'draw'
-  | 'scorer'
-  | 'sub'
-  | 'discard_max_1'
-  | 'discard_max_2'
-  | 'discard_max_3';
-
-export type Gems = 'orange' | 'purple';
-//_______________________________________
-
-//__NAMES DISPLAYED IN THE UI FOR THE FILTERS INPUTS
-
-export enum EffectsContentNames {
-  EffetPermanent = 'Effet Permanent',
-  Combo = 'Combo',
-  FaitPiocher = 'Fait Piocher',
-  Scoreur = 'Scoreur',
-  EffetSub = 'Effet Sub',
-  FaitDefausserMax1 = 'Fait Defausser Max 1',
-  FaitDefausserMax2 = 'Fait Defausser Max 2',
-  FaitDefausserMax3 = 'Fait Defausser Max 3',
-}
-
-export enum GemsContentNames {
-  Orange = 'Orange',
-  Violet = 'Violet',
-}
-//________________________________________________________
-
 //__FILTER'S OBJ FOR FILTER USECASE
 
 export type CardFilters = {
@@ -66,12 +32,40 @@ export type CardFilters = {
   clan: Clan[];
   cost: Cost[];
   strength: number[];
-  effects: EffectsContentNames[];
+  effects: EffectsContentNamesType[];
   errata: boolean;
   is_ban?: boolean;
-  gem_open: GemsContentNames[];
-  gem_close: GemsContentNames[];
+  gem_open: GemsContentNamesType[];
+  gem_close: GemsContentNamesType[];
 };
+
+export const effectsMapping = {
+  'Effet Permanent': 'permanent',
+  Combo: 'combo',
+  'Fait Piocher': 'draw',
+  Scoreur: 'scorer',
+  'Effet Sub': 'sub',
+  'Fait Defausser Max 1': 'discard_max_1',
+  'Fait Defausser Max 2': 'discard_max_2',
+  'Fait Defausser Max 3': 'discard_max_3',
+} as const;
+
+export type EffectsContentNamesType = keyof typeof effectsMapping; // Côté UI
+export type Effects = (typeof effectsMapping)[EffectsContentNamesType]; // Côté DB
+export const effectsContentNames: EffectsContentNamesType[] = Object.keys(
+  effectsMapping
+) as EffectsContentNamesType[];
+
+export const gemsMapping = {
+  Orange: 'orange',
+  Violet: 'purple',
+};
+
+export type GemsContentNamesType = keyof typeof gemsMapping; // Côté UI
+export type Gems = (typeof gemsMapping)[GemsContentNamesType]; // Côté DB
+export const gemsContentNames: GemsContentNamesType[] = Object.keys(
+  gemsMapping
+) as GemsContentNamesType[];
 
 const extensionValues = ['Origins', 'Campus', 'Battle'] as const;
 export type Extension = (typeof extensionValues)[number];
@@ -80,6 +74,10 @@ export const extensionOptions: Extension[] = Array.from(extensionValues);
 const raritityValues = ['Terrain', 'Commune', 'Peu commune', 'Rare'] as const;
 export type Rarity = (typeof raritityValues)[number];
 export const rarityOptions: Rarity[] = Array.from(raritityValues);
+
+const strengthValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
+export type Strength = (typeof strengthValues)[number];
+export const strengthOptions: Strength[] = Array.from(strengthValues);
 
 const clanValues = [
   'Terrain',

@@ -18,7 +18,6 @@ import { RarityFilterComponent } from './rarity-filter/rarity-filter.component';
     ClanFilterComponent,
   ],
   templateUrl: './meta-view.component.html',
-  styles: ``,
 })
 export class MetaViewComponent {
   private filterService = inject(FilterService);

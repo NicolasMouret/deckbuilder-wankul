@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CardFilters } from '../../../domain/models/card.model';
+import { GameplayViewComponent } from '../filters-gameplay/game.component';
 import { MetaViewComponent } from '../filters-meta/meta-view.component';
 import { NameFilterComponent } from '../name-filter/name-filter.component';
 import { FilterService } from './../../../application/services/filter.service';
 
 @Component({
   selector: 'app-filters-view',
-  imports: [NameFilterComponent, MetaViewComponent],
+  imports: [NameFilterComponent, MetaViewComponent, GameplayViewComponent],
   templateUrl: './filters-view.component.html',
 })
 export class FiltersViewComponent {

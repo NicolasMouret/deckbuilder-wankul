@@ -1,5 +1,13 @@
-<details class="dropdown">
-  <summary class="m-1 btn">{{ dropdownName() }}</summary>
+<details class="dropdown" [open]="isDropdownOpen">
+  <summary
+    class="m-1 btn"
+    [attr.aria-expanded]="isDropdownOpen"
+    (click)="toggleDropdown()"
+    (focusout)="onFocusOut($event)"
+  >
+    {{ dropdownName() }}
+  </summary>
+  @if (isDropdownOpen) {
   <ul
     class="menu dropdown-content gap-2 bg-base-100 rounded-box z-[1] w-52 p-2 shadow-sm border border-base-200"
   >
@@ -15,4 +23,5 @@
     </li>
     }
   </ul>
+  }
 </details>
