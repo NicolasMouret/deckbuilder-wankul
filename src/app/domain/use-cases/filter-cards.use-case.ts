@@ -3,10 +3,14 @@ import { CardService } from '../../application/services/card.service';
 import {
   Card,
   CardFilters,
+  Clan,
+  Cost,
   Effects,
   EffectsContentNames,
+  Extension,
   Gems,
   GemsContentNames,
+  Rarity,
 } from '../models/card.model';
 
 @Injectable({
@@ -17,25 +21,62 @@ export class FilterCardsUseCase {
 
   async execute(filters: CardFilters): Promise<Card[]> {
     const cards = await this.cardService.getAllCards();
-    return cards.filter((card) => {
-      return (
-        (!filters.name ||
-          card.name.toLowerCase().includes(filters.name.toLowerCase())) &&
-        (!filters.extension || filters.extension.includes(card.extension)) &&
-        (!filters.rarity || filters.rarity.includes(card.rarity)) &&
-        (!filters.clan || filters.clan.includes(card.clan)) &&
-        (!filters.cost || filters.cost.includes(card.cost || 0)) &&
-        (!filters.strength || filters.strength.includes(card.strength || 0)) &&
-        (!filters.effects ||
-          this.matchEffects(card.effects, filters.effects)) &&
-        (!filters.gem_open ||
-          this.matchGems(card.gem_open, filters.gem_open)) &&
-        (!filters.gem_close ||
-          this.matchGems(card.gem_close, filters.gem_close)) &&
-        (filters.errata === undefined || filters.errata === !!card.errata) &&
-        (filters.is_ban === undefined || filters.is_ban === card.is_ban)
-      );
-    });
+    return cards.filter((card) => this.applyFilters(card, filters));
+  }
+
+  private applyFilters(card: Card, filters: CardFilters): boolean {
+    return (
+      this.matchName(card, filters.name) &&
+      this.matchExtension(card, filters.extension) &&
+      this.matchRarity(card, filters.rarity) &&
+      this.matchClan(card, filters.clan) &&
+      this.matchCost(card, filters.cost) &&
+      this.matchStrength(card, filters.strength) &&
+      this.matchEffects(card.effects, filters.effects) &&
+      this.matchGems(card.gem_open, filters.gem_open) &&
+      this.matchGems(card.gem_close, filters.gem_close) &&
+      this.matchErrata(card, filters.errata) &&
+      this.matchBanStatus(card, filters.is_ban)
+    );
+  }
+
+  private matchName(card: Card, name: string): boolean {
+    return !name || card.name.toLowerCase().includes(name.toLowerCase());
+  }
+
+  private matchExtension(card: Card, extensions: Extension[]): boolean {
+    return extensions.length === 0 || extensions.includes(card.extension);
+  }
+
+  private matchRarity(card: Card, rarities: Rarity[]): boolean {
+    return rarities.length === 0 || rarities.includes(card.rarity);
+  }
+
+  private matchClan(card: Card, clans: Clan[]): boolean {
+    return clans.length === 0 || clans.includes(card.clan);
+  }
+
+  private matchCost(card: Card, costs: Cost[]): boolean {
+    return costs.length === 0 || costs.includes(card.cost || 0);
+  }
+
+  private matchStrength(card: Card, strengths: number[]): boolean {
+    return strengths.length === 0 || strengths.includes(card.strength || 0);
+  }
+
+  private matchErrata(card: Card, errata: boolean): boolean {
+    if (errata) {
+      return card.errata !== null;
+    } else {
+      return true;
+    }
+  }
+
+  private matchBanStatus(card: Card, isBan: boolean | undefined): boolean {
+    if (isBan === undefined) {
+      return true;
+    }
+    return card.is_ban === isBan;
   }
 
   private matchEffects(
@@ -56,13 +97,13 @@ export class FilterCardsUseCase {
     const mappedFilterEffects = filterEffects.map(
       (uiEffect) => uiToDbEffects[uiEffect]
     );
-    return mappedFilterEffects.every((effect) => cardEffects.includes(effect));
+    return (
+      filterEffects.length === 0 ||
+      mappedFilterEffects.every((effect) => cardEffects.includes(effect))
+    );
   }
 
-  private matchGems(
-    cardGems: Gems[] | null,
-    filterGems: GemsContentNames[]
-  ): boolean {
+  private matchGems(cardGems: Gems[], filterGems: GemsContentNames[]): boolean {
     if (!cardGems) return false;
 
     const uiToDbGems: Record<GemsContentNames, Gems> = {

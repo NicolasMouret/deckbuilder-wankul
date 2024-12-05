@@ -1,9 +1,16 @@
 <div
-  class="fixed shadow-md navbar bg-base-100/80 backdrop-blur-sm justify-evenly"
+  class="fixed z-10 shadow-md navbar bg-base-100/80 backdrop-blur-sm justify-evenly"
 >
   <div class="navbar-start w-fit">
     <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+      <div
+        tabindex="0"
+        role="button"
+        class="btn btn-ghost lg:hidden"
+        (click)="toggleDropdown()"
+        [attr.aria-expanded]="isDropdownOpen"
+        (focusout)="isDropdownOpen = false"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="w-5 h-5"
@@ -19,14 +26,33 @@
           />
         </svg>
       </div>
+      @if (isDropdownOpen) {
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
       >
+        @if (session) {
+        <li>
+          <p>
+            Bienvenue
+            {{ session.user.user_metadata["username"] }} !
+          </p>
+        </li>
+        }
         <li><a role="button" class="btn btn-ghost">Les cartes</a></li>
         <li><a role="button" class="btn btn-ghost">Ma collection</a></li>
         <li><a role="button" class="btn btn-ghost">Deck builder</a></li>
+        @if (!session) {
+        <li><a routerLink="/sign-in" class="btn btn-ghost">Se connecter</a></li>
+        } @else {
+        <li>
+          <button (click)="signOut()" role="button" class="btn btn-ghost">
+            Déconnexion
+          </button>
+        </li>
+        }
       </ul>
+      }
     </div>
     <a class="text-xl btn btn-ghost">Wankul - Le Deck Builder</a>
   </div>
@@ -37,7 +63,7 @@
       <li><a role="button" class="btn btn-ghost">Deck builder</a></li>
     </ul>
   </div>
-  <div class="space-x-4 navbar-end w-fit">
+  <div class="hidden space-x-4 lg:flex navbar-end w-fit">
     @if (!session) {
     <a routerLink="/sign-in" class="btn btn-outline btn-primary"
       >Se connecter</a

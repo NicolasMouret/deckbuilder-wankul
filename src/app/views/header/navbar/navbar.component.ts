@@ -10,6 +10,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class NavbarComponent {
   private readonly auth = inject(AuthService);
+  protected isDropdownOpen = false;
   session: Session | null = null;
 
   constructor() {
@@ -22,8 +23,12 @@ export class NavbarComponent {
     });
   }
 
-  signOut(): void {
+  protected signOut(): void {
     console.log('signing out');
     this.auth.signOut();
+  }
+
+  protected toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
   }
 }
