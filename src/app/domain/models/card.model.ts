@@ -16,8 +16,8 @@ export type Card = {
   effects: Effects[];
   errata: string | null;
   is_ban: boolean;
-  gem_open: Gems[] | null;
-  gem_close: Gems[] | null;
+  gem_open: Gems[];
+  gem_close: Gems[];
   artist: string;
   illustration_url: string;
 };
@@ -60,34 +60,38 @@ export enum GemsContentNames {
 //__FILTER'S OBJ FOR FILTER USECASE
 
 export type CardFilters = {
-  name?: string;
-  extension?: Extension[];
-  rarity?: Rarity[];
-  clan?: Clan[];
-  cost?: Cost[];
-  strength?: number[];
-  effects?: EffectsContentNames[];
-  errata?: boolean;
+  name: string;
+  extension: Extension[];
+  rarity: Rarity[];
+  clan: Clan[];
+  cost: Cost[];
+  strength: number[];
+  effects: EffectsContentNames[];
+  errata: boolean;
   is_ban?: boolean;
-  gem_open?: GemsContentNames[];
-  gem_close?: GemsContentNames[];
+  gem_open: GemsContentNames[];
+  gem_close: GemsContentNames[];
 };
 
-type Extension = 'Origins' | 'Campus' | 'Battle';
-type Rarity = 'Terrain' | 'Commune' | 'Peu commune' | 'Rare';
-type Clan =
-  | 'Terrain'
-  | 'Terracid'
-  | 'Laink'
-  | 'Guest'
-  | 'Random'
-  | "Gagnant ticket d'or";
-type Cost = 0 | 1 | 2 | 3;
+const extensionValues = ['Origins', 'Campus', 'Battle'] as const;
+export type Extension = (typeof extensionValues)[number];
+export const extensionOptions: Extension[] = Array.from(extensionValues);
 
-export type FilterContent = {
-  propertyName: string;
-  options: string[];
-  label: string;
-  selectionMode: 'single' | 'multiple';
-  isSmall: boolean;
-};
+const raritityValues = ['Terrain', 'Commune', 'Peu commune', 'Rare'] as const;
+export type Rarity = (typeof raritityValues)[number];
+export const rarityOptions: Rarity[] = Array.from(raritityValues);
+
+const clanValues = [
+  'Terrain',
+  'Terracid',
+  'Laink',
+  'Guest',
+  'Random',
+  "Gagnant ticket d'or",
+] as const;
+export type Clan = (typeof clanValues)[number];
+export const clanOptions: Clan[] = Array.from(clanValues);
+
+const costValues = [0, 1, 2, 3] as const;
+export type Cost = (typeof costValues)[number];
+export const costOptions: Cost[] = Array.from(costValues);

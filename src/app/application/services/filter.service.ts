@@ -6,7 +6,21 @@ import { CardFilters } from '../../domain/models/card.model';
   providedIn: 'root',
 })
 export class FilterService {
-  private filtersSubject = new BehaviorSubject<CardFilters>({});
+  initialFilters: CardFilters = {
+    name: '',
+    extension: [],
+    rarity: [],
+    clan: [],
+    cost: [],
+    strength: [],
+    effects: [],
+    errata: false,
+    gem_open: [],
+    gem_close: [],
+  };
+  private filtersSubject = new BehaviorSubject<CardFilters>(
+    this.initialFilters
+  );
   filters$ = this.filtersSubject.asObservable();
 
   updateFilters(newFilters: Partial<CardFilters>) {
