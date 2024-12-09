@@ -1,4 +1,5 @@
 import { Component, output } from '@angular/core';
+import { UiUtils } from '../../../../application/utils/ui-utils';
 import { Cost, costOptions } from '../../../../domain/models/card.model';
 import { DropdownCheckboxComponent } from '../../../shared/dropdown-checkbox/dropdown-checkbox.component';
 
@@ -15,19 +16,10 @@ export class CostFilterComponent {
   selectedOptionsOutput = output<Cost[]>();
 
   onEventOutput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value = Number(target.value) as Cost;
-    const checked = target.checked;
-
-    if (checked) {
-      this.selectedOptions.push(value);
-    } else {
-      this.selectedOptions = this.selectedOptions.filter(
-        (option) => option !== value
-      );
-    }
-
+    this.selectedOptions = UiUtils.updateSelectedOptions(
+      event,
+      this.selectedOptions
+    );
     this.selectedOptionsOutput.emit(this.selectedOptions);
-    console.log('Emitted selected options extension', this.selectedOptions);
   }
 }

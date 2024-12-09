@@ -18,7 +18,9 @@
         value="{{ option }}"
         [attr.aria-label]="option"
         class="btn"
+        [checked]="isSelected(option)"
         (change)="onChange($event)"
+        (focusout)="onFocusOut($event)"
       />
     </li>
     }

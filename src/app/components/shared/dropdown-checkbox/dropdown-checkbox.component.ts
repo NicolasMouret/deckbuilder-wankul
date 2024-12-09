@@ -1,6 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DropdownService } from '../../../application/services/dropdown.service';
+import { UiUtils } from '../../../application/utils/ui-utils';
 
 @Component({
   selector: 'app-dropdown-checkbox',
@@ -11,6 +12,7 @@ export class DropdownCheckboxComponent {
   protected isDropdownOpen = false;
   dropdownName = input.required<string>();
   options = input.required<string[] | number[]>();
+  selectedOptions: (string | number)[] = [];
   eventOutput = output<Event>();
   private dropdownId = this.dropdownName;
   private subscription!: Subscription;
@@ -27,11 +29,19 @@ export class DropdownCheckboxComponent {
     );
   }
 
+  isSelected(option: string | number): boolean {
+    return this.selectedOptions.includes(option);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   onChange(event: Event): void {
+    this.selectedOptions = UiUtils.updateSelectedOptions(
+      event,
+      this.selectedOptions
+    );
     this.eventOutput.emit(event);
   }
 

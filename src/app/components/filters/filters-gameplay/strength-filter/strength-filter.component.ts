@@ -1,4 +1,5 @@
 import { Component, output } from '@angular/core';
+import { UiUtils } from '../../../../application/utils/ui-utils';
 import {
   Strength,
   strengthOptions,
@@ -18,19 +19,10 @@ export class StrengthFilterComponent {
   selectedOptionsOutput = output<Strength[]>();
 
   onEventOutput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value = Number(target.value) as Strength;
-    const checked = target.checked;
-
-    if (checked) {
-      this.selectedOptions.push(value);
-    } else {
-      this.selectedOptions = this.selectedOptions.filter(
-        (option) => option !== value
-      );
-    }
-
+    this.selectedOptions = UiUtils.updateSelectedOptions<Strength>(
+      event,
+      this.selectedOptions
+    );
     this.selectedOptionsOutput.emit(this.selectedOptions);
-    console.log('Emitted selected options extension', this.selectedOptions);
   }
 }

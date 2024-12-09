@@ -26,7 +26,7 @@ export class FilterService {
   updateFilters(newFilters: Partial<CardFilters>) {
     const currentFilters = this.filtersSubject.value;
     const updatedFilters = { ...currentFilters, ...newFilters };
-    console.log('Updated filters in service', updatedFilters);
+    console.table(updatedFilters);
     this.filtersSubject.next(updatedFilters);
   }
 }

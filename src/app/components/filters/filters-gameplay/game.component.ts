@@ -18,7 +18,6 @@ import { StrengthFilterComponent } from './strength-filter/strength-filter.compo
     CostFilterComponent,
   ],
   templateUrl: './game.component.html',
-  styles: ``,
 })
 export class GameplayViewComponent {
   private filterService = inject(FilterService);

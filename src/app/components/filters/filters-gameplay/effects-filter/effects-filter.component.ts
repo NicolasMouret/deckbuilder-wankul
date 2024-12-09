@@ -1,4 +1,5 @@
 import { Component, output } from '@angular/core';
+import { UiUtils } from '../../../../application/utils/ui-utils';
 import {
   effectsContentNames,
   EffectsContentNamesType,
@@ -18,19 +19,10 @@ export class EffectsFilterComponent {
   selectedOptionsOutput = output<EffectsContentNamesType[]>();
 
   onEventOutput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value = target.value as EffectsContentNamesType;
-    const checked = target.checked;
-
-    if (checked) {
-      this.selectedOptions.push(value);
-    } else {
-      this.selectedOptions = this.selectedOptions.filter(
-        (option) => option !== value
-      );
-    }
-
+    this.selectedOptions = UiUtils.updateSelectedOptions(
+      event,
+      this.selectedOptions
+    );
     this.selectedOptionsOutput.emit(this.selectedOptions);
-    console.log('Emitted selected options extension', this.selectedOptions);
   }
 }
