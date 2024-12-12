@@ -10,7 +10,6 @@ export class DropdownService {
   dropdownState$ = this.dropdownState.asObservable();
 
   openDropdown(dropdownId: InputSignal<string>): void {
-    console.log('Dropdown opened', dropdownId);
     this.dropdownState.next(dropdownId);
   }
 }

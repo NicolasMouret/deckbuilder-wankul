@@ -1,0 +1,19 @@
+<app-name-filter class="w-full" (searchOutput)="onNameSearchChange($event)" />
+<div
+  class="overflow-visible border collapse collapse-arrow bg-base-100 border-info lg:hidden"
+>
+  <input type="checkbox" />
+  <div class="text-xl font-medium collapse-title">Filtres</div>
+  <div class="space-y-2 collapse-content">
+    <app-meta-view class="flex gap-2" />
+    <app-gameplay-view class="flex gap-2" />
+    <app-ban-filter class="flex" />
+  </div>
+</div>
+<div class="hidden gap-2 lg:flex lg:flex-col">
+  <div class="gap-2 lg:flex">
+    <app-meta-view class="flex gap-2" />
+    <app-gameplay-view class="flex gap-2" />
+  </div>
+  <app-ban-filter class="lg:max-w-fit" />
+</div>

@@ -10,7 +10,6 @@ import { DropdownCheckboxComponent } from '../../../shared/dropdown-checkbox/dro
   selector: 'app-strength-filter',
   imports: [DropdownCheckboxComponent],
   templateUrl: './strength-filter.component.html',
-  styles: ``,
 })
 export class StrengthFilterComponent {
   protected dropdownName = 'Force';

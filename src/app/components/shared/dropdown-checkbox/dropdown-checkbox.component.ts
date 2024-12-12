@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DropdownService } from '../../../application/services/dropdown.service';
@@ -5,11 +6,12 @@ import { UiUtils } from '../../../application/utils/ui-utils';
 
 @Component({
   selector: 'app-dropdown-checkbox',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './dropdown-checkbox.component.html',
 })
 export class DropdownCheckboxComponent {
   protected isDropdownOpen = false;
+  isAlignEnd = input<boolean>(false);
   dropdownName = input.required<string>();
   options = input.required<string[] | number[]>();
   selectedOptions: (string | number)[] = [];
@@ -50,7 +52,6 @@ export class DropdownCheckboxComponent {
     if (this.isDropdownOpen) {
       this.dropdownService.openDropdown(this.dropdownId);
     }
-    console.log('Dropdown status', this.isDropdownOpen);
   }
 
   protected onFocusOut(event: FocusEvent): void {

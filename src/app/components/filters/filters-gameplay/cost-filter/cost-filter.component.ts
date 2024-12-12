@@ -7,7 +7,6 @@ import { DropdownCheckboxComponent } from '../../../shared/dropdown-checkbox/dro
   selector: 'app-cost-filter',
   imports: [DropdownCheckboxComponent],
   templateUrl: './cost-filter.component.html',
-  styles: ``,
 })
 export class CostFilterComponent {
   protected dropdownName = 'Coût';

@@ -4,8 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-errata-filter',
   imports: [],
   templateUrl: './errata-filter.component.html',
-  styles: ``
 })
-export class ErrataFilterComponent {
-
-}
+export class ErrataFilterComponent {}

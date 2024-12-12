@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CardsViewComponent } from '../../components/cards/cards-view/cards-view.component';
-import { FiltersViewComponent } from '../../components/filters/filters-view/filters-view.component';
+import { FiltersViewComponent } from '../../components/filters/filters-view.component';
 
 @Component({
   selector: 'app-home',

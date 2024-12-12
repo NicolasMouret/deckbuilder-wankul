@@ -21,7 +21,6 @@ export type Card = {
   artist: string;
   illustration_url: string;
 };
-//_______________________________________
 
 //__FILTER'S OBJ FOR FILTER USECASE
 
@@ -75,7 +74,7 @@ const raritityValues = ['Terrain', 'Commune', 'Peu commune', 'Rare'] as const;
 export type Rarity = (typeof raritityValues)[number];
 export const rarityOptions: Rarity[] = Array.from(raritityValues);
 
-const strengthValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
+const strengthValues = [0, 1, 2, 3, 4, 5, 6, 7, 8, 10] as const;
 export type Strength = (typeof strengthValues)[number];
 export const strengthOptions: Strength[] = Array.from(strengthValues);
 

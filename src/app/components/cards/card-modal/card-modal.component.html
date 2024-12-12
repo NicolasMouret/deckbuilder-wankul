@@ -1,6 +1,9 @@
 <dialog class="modal" #dialog>
-  <div class="border modal-box backdrop-blur-sm bg-base-100/30 border-base-100">
-    <img ngSrc="{{ card()?.illustration_url }}" class="rounded-xl" alt="" />
+  <div
+    [ngClass]="card()?.rarity === 'Terrain' ? 'rotate-90 ' : ''"
+    class="border modal-box backdrop-blur-sm bg-base-100/30 border-base-100"
+  >
+    <img src="{{ card()?.illustration_url }}" class="rounded-xl" alt="" />
   </div>
   <form class="modal-backdrop" method="dialog">
     <button>Close</button>

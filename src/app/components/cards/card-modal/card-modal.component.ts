@@ -1,10 +1,10 @@
+import { NgClass } from '@angular/common';
 import { Component, ElementRef, input, viewChild } from '@angular/core';
 import { Card } from '../../../domain/models/card.model';
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-card-modal',
-  imports: [NgOptimizedImage],
+  imports: [NgClass],
   templateUrl: './card-modal.component.html',
 })
 export class CardModalComponent {

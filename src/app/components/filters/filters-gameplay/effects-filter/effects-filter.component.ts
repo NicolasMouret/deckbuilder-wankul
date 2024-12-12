@@ -10,7 +10,6 @@ import { DropdownCheckboxComponent } from '../../../shared/dropdown-checkbox/dro
   selector: 'app-effects-filter',
   imports: [DropdownCheckboxComponent],
   templateUrl: './effects-filter.component.html',
-  styles: ``,
 })
 export class EffectsFilterComponent {
   protected dropdownName = 'Effets';
