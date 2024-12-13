@@ -1,7 +1,12 @@
+@if (imgIsLoading) {
+<div class="skeleton rounded-md aspect-[214/300] w-full"></div>
+} @else {
 <img
-  ngSrc="{{ illustrationUrl() }}"
-  class="rounded-md"
+  src="{{ illustrationUrl() }}"
+  [alt]="cardName()"
+  class="rounded-md cursor-pointer hover:shadow-[0px_0px_15px_5px_#d1bb00] hover:animate-wiggle"
   sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
   width="214"
   height="300"
-/>
+  (click)="onClick()"
+/>}

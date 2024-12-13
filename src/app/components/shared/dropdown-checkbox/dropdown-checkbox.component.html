@@ -1,18 +1,33 @@
-<details class="dropdown">
-  <summary class="m-1 btn">{{ dropdownName() }}</summary>
+<details
+  class="dropdown"
+  [ngClass]="isAlignEnd() ? 'dropdown-end' : ''"
+  [open]="isDropdownOpen"
+>
+  <summary
+    class="w-24 border shadow-sm btn border-base-300"
+    [attr.aria-expanded]="isDropdownOpen"
+    (click)="toggleDropdown()"
+    (focusout)="onFocusOut($event)"
+  >
+    {{ dropdownName() }}
+  </summary>
+  @if (isDropdownOpen) {
   <ul
-    class="menu dropdown-content gap-2 bg-base-100 rounded-box z-[1] w-52 p-2 shadow-sm border border-base-200"
+    class="menu dropdown-content gap-2 bg-base-100 rounded-lg z-[1] w-52 p-4 shadow-sm border border-base-300 mt-2 max-h-80 overflow-y-auto flex-nowrap"
   >
     @for (option of options(); track option) {
-    <li>
+    <li class="w-full">
       <input
         type="checkbox"
         value="{{ option }}"
         [attr.aria-label]="option"
-        class="btn"
+        class="w-full border btn border-base-300"
+        [checked]="isSelected(option)"
         (change)="onChange($event)"
+        (focusout)="onFocusOut($event)"
       />
     </li>
     }
   </ul>
+  }
 </details>

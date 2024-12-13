@@ -2,7 +2,24 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        wiggle: {
+          "0%": {
+            transform: "rotate(0deg)",
+          },
+          "50%": {
+            transform: "rotate(1.5deg)",
+          },
+          "100%": {
+            transform: "rotate(0deg)",
+          },
+        },
+      },
+      animation: {
+        wiggle: "wiggle .15s linear 1 normal",
+      },
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
@@ -38,7 +55,7 @@ module.exports = {
           "warning-content": "#78350F", // Texte sur fond "warning"
 
           error: "#EF4444", // Rouge pour les erreurs
-          "error-content": "#7F1D1D", // Texte sur fond "error"
+          "error-content": "#450a0a", // Texte sur fond "error"
         },
       },
     ],

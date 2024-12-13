@@ -4,8 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-gems-filter',
   imports: [],
   templateUrl: './gems-filter.component.html',
-  styles: ``
 })
-export class GemsFilterComponent {
-
-}
+export class GemsFilterComponent {}

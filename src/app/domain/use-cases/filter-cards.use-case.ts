@@ -6,10 +6,12 @@ import {
   Clan,
   Cost,
   Effects,
-  EffectsContentNames,
+  EffectsContentNamesType,
+  effectsMapping,
   Extension,
   Gems,
-  GemsContentNames,
+  GemsContentNamesType,
+  gemsMapping,
   Rarity,
 } from '../models/card.model';
 
@@ -81,21 +83,10 @@ export class FilterCardsUseCase {
 
   private matchEffects(
     cardEffects: Effects[],
-    filterEffects: EffectsContentNames[]
+    filterEffects: EffectsContentNamesType[]
   ): boolean {
-    const uiToDbEffects: Record<EffectsContentNames, Effects> = {
-      [EffectsContentNames.EffetPermanent]: 'permanent',
-      [EffectsContentNames.Combo]: 'combo',
-      [EffectsContentNames.FaitPiocher]: 'draw',
-      [EffectsContentNames.Scoreur]: 'scorer',
-      [EffectsContentNames.EffetSub]: 'sub',
-      [EffectsContentNames.FaitDefausserMax1]: 'discard_max_1',
-      [EffectsContentNames.FaitDefausserMax2]: 'discard_max_2',
-      [EffectsContentNames.FaitDefausserMax3]: 'discard_max_3',
-    };
-
     const mappedFilterEffects = filterEffects.map(
-      (uiEffect) => uiToDbEffects[uiEffect]
+      (uiEffect) => effectsMapping[uiEffect]
     );
     return (
       filterEffects.length === 0 ||
@@ -103,15 +94,15 @@ export class FilterCardsUseCase {
     );
   }
 
-  private matchGems(cardGems: Gems[], filterGems: GemsContentNames[]): boolean {
+  private matchGems(
+    cardGems: Gems[],
+    filterGems: GemsContentNamesType[]
+  ): boolean {
     if (!cardGems) return false;
 
-    const uiToDbGems: Record<GemsContentNames, Gems> = {
-      [GemsContentNames.Orange]: 'orange',
-      [GemsContentNames.Violet]: 'purple',
-    };
-
-    const mappedFilterGems = filterGems.map((uiGem) => uiToDbGems[uiGem]);
+    const mappedFilterGems = filterGems.map(
+      (uiGem) => gemsMapping[uiGem]
+    ) as Gems[];
     return mappedFilterGems.every((gem) => cardGems.includes(gem));
   }
 }

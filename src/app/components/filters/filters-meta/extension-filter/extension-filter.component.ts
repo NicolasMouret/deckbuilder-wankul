@@ -4,6 +4,7 @@ import {
   extensionOptions,
 } from '../../../../domain/models/card.model';
 import { DropdownCheckboxComponent } from '../../../shared/dropdown-checkbox/dropdown-checkbox.component';
+import { UiUtils } from '../../../../application/utils/ui-utils';
 
 @Component({
   selector: 'app-extension-filter',
@@ -17,19 +18,10 @@ export class ExtensionFilterComponent {
   selectedOptionsOutput = output<Extension[]>();
 
   onEventOutput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const value = target.value as Extension;
-    const checked = target.checked;
-
-    if (checked) {
-      this.selectedOptions.push(value);
-    } else {
-      this.selectedOptions = this.selectedOptions.filter(
-        (option) => option !== value
-      );
-    }
-
+    this.selectedOptions = UiUtils.updateSelectedOptions(
+      event,
+      this.selectedOptions
+    );
     this.selectedOptionsOutput.emit(this.selectedOptions);
-    console.log('Emitted selected options extension', this.selectedOptions);
   }
 }

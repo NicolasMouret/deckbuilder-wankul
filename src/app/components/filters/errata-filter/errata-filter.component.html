@@ -1,1 +1,11 @@
-<p>errata-filter works!</p>
+<div class="w-fit">
+  <label class="gap-2 cursor-pointer label">
+    <span class="label-text">Voir les cartes avec errata</span>
+    <input
+      type="checkbox"
+      class="checkbox"
+      [checked]="isCheckboxChecked"
+      (change)="onCheckboxChange($event)"
+    />
+  </label>
+</div>

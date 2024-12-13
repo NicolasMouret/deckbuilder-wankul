@@ -1,0 +1,35 @@
+<dialog class="modal" #dialog>
+  <div
+    [ngClass]="card()?.rarity === 'Terrain' ? 'rotate-90 ' : ''"
+    class="space-y-4 border modal-box backdrop-blur-sm bg-base-100/30"
+  >
+    @if (card()?.is_ban) {
+    <p
+      class="p-2 text-lg font-bold border rounded-lg bg-error/70 text-error-content border-error"
+    >
+      Carte ban !
+    </p>
+    }
+    <img
+      src="{{ card()?.illustration_url }}"
+      [ngClass]="
+        card()?.is_ban
+          ? 'border-2 border-error shadow-[0px_0px_20px_2px_#EF4444]'
+          : ''
+      "
+      class="rounded-xl"
+      alt=""
+    />
+    @if (card()?.errata) {
+    <div
+      class="flex flex-col gap-2 p-6 rounded-md shadow-[inset_0px_0px_20px_5px_#6b7280] bg-base-100/70"
+    >
+      <h2 class="text-lg font-bold">Errata !</h2>
+      <p>{{ card()?.errata }}</p>
+    </div>
+    }
+  </div>
+  <form class="modal-backdrop" method="dialog">
+    <button>Close</button>
+  </form>
+</dialog>
