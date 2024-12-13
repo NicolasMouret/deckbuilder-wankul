@@ -55,7 +55,7 @@ module.exports = {
           "warning-content": "#78350F", // Texte sur fond "warning"
 
           error: "#EF4444", // Rouge pour les erreurs
-          "error-content": "#7F1D1D", // Texte sur fond "error"
+          "error-content": "#450a0a", // Texte sur fond "error"
         },
       },
     ],

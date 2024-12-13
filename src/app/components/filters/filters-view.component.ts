@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CardFilters } from '../../domain/models/card.model';
 import { FilterService } from './../../application/services/filter.service';
 import { BanFilterComponent } from './ban-filter/ban-filter.component';
+import { ErrataFilterComponent } from './errata-filter/errata-filter.component';
 import { GameplayViewComponent } from './filters-gameplay/game.component';
 import { MetaViewComponent } from './filters-meta/meta-view.component';
 import { NameFilterComponent } from './name-filter/name-filter.component';
@@ -13,6 +14,7 @@ import { NameFilterComponent } from './name-filter/name-filter.component';
     MetaViewComponent,
     GameplayViewComponent,
     BanFilterComponent,
+    ErrataFilterComponent,
   ],
   templateUrl: './filters-view.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

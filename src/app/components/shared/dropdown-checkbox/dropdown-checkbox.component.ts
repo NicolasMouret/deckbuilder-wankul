@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DropdownService } from '../../../application/services/dropdown.service';
 import { UiUtils } from '../../../application/utils/ui-utils';
@@ -10,19 +10,23 @@ import { UiUtils } from '../../../application/utils/ui-utils';
   templateUrl: './dropdown-checkbox.component.html',
 })
 export class DropdownCheckboxComponent {
+  dropdownService = inject(DropdownService);
   protected isDropdownOpen = false;
-  isAlignEnd = input<boolean>(false);
+
+  protected isAlignEnd = input<boolean>(false);
   dropdownName = input.required<string>();
   options = input.required<string[] | number[]>();
-  selectedOptions: (string | number)[] = [];
-  eventOutput = output<Event>();
-  private dropdownId = this.dropdownName;
-  private subscription!: Subscription;
 
-  constructor(private dropdownService: DropdownService) {}
+  eventOutput = output<Event>();
+
+  selectedOptions: (string | number)[] = [];
+  private dropdownId = this.dropdownName;
+  private dropdownSubscription!: Subscription;
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.subscription = this.dropdownService.dropdownState$.subscribe(
+    this.dropdownSubscription = this.dropdownService.dropdownState$.subscribe(
       (dropdownId) => {
         if (dropdownId !== this.dropdownId) {
           this.isDropdownOpen = false;
@@ -36,7 +40,7 @@ export class DropdownCheckboxComponent {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.dropdownSubscription.unsubscribe();
   }
 
   onChange(event: Event): void {

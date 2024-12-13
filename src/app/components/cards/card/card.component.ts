@@ -22,5 +22,4 @@ export class CardComponent {
       this.imgIsLoading = false;
     };
   }
-
 }
