@@ -1,1 +1,24 @@
-<p>close-filter works!</p>
+<div>
+  <div class="w-fit">
+    <label class="gap-2 cursor-pointer label">
+      <img src="/top_left.png" alt="Orange" class="w-6 h-6" />
+      <input
+        type="checkbox"
+        class="border checkbox border-info hover:border-base-content"
+        (change)="onCloseChange($event)"
+        value="Orange"
+      />
+    </label>
+  </div>
+  <div class="w-fit">
+    <label class="gap-2 cursor-pointer label">
+      <img src="/bottom_left.png" alt="Violet" class="w-6 h-6" />
+      <input
+        type="checkbox"
+        class="border checkbox border-info hover:border-base-content"
+        (change)="onCloseChange($event)"
+        value="Violet"
+      />
+    </label>
+  </div>
+</div>

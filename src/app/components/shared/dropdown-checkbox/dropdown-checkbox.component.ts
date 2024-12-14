@@ -13,7 +13,7 @@ export class DropdownCheckboxComponent {
   dropdownService = inject(DropdownService);
   protected isDropdownOpen = false;
 
-  protected isAlignEnd = input<boolean>(false);
+  isAlignEnd = input<boolean>(false);
   dropdownName = input.required<string>();
   options = input.required<string[] | number[]>();
 
