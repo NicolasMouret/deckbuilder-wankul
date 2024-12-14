@@ -15,6 +15,7 @@ export class FilterService {
     strength: [],
     effects: [],
     errata: false,
+    is_ban: false,
     gem_open: [],
     gem_close: [],
   };

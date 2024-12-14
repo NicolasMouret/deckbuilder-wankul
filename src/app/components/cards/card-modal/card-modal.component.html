@@ -1,6 +1,6 @@
 <dialog class="modal" #dialog>
   <div
-    [ngClass]="card()?.rarity === 'Terrain' ? 'rotate-90 ' : ''"
+    [ngClass]="card()?.rarity === 'Terrain' ? 'md:rotate-90' : ''"
     class="space-y-4 border modal-box backdrop-blur-sm bg-base-100/30"
   >
     @if (card()?.is_ban) {
@@ -25,7 +25,7 @@
       class="flex flex-col gap-2 p-6 rounded-md shadow-[inset_0px_0px_20px_5px_#6b7280] bg-base-100/70"
     >
       <h2 class="text-lg font-bold">Errata !</h2>
-      <p>{{ card()?.errata }}</p>
+      <p class="font-medium">{{ card()?.errata }}</p>
     </div>
     }
   </div>
