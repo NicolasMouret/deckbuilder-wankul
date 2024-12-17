@@ -4,12 +4,11 @@ import { CardsViewComponent } from '../../components/cards/cards-view/cards-view
 import { FiltersViewComponent } from '../../components/filters/filters-view.component';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
+  selector: 'app-collection',
   imports: [CardsViewComponent, FiltersViewComponent],
-  templateUrl: './home.component.html',
+  templateUrl: './collection.component.html',
 })
-export class HomeComponent {
+export class CollectionComponent {
   filterService = inject(FilterService);
 
   ngOnInit() {

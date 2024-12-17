@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { CardService } from '../../application/services/card.service';
+import { CollectionService } from '../../application/services/collection.service';
 import {
   Card,
   CardFilters,
@@ -19,7 +20,8 @@ import {
   providedIn: 'root',
 })
 export class FilterCardsUseCase {
-  cardService = inject(CardService);
+  private cardService = inject(CardService);
+  private collectionService = inject(CollectionService);
 
   async execute(filters: CardFilters): Promise<Card[]> {
     const cards = await this.cardService.getAllCards();
@@ -38,7 +40,8 @@ export class FilterCardsUseCase {
       this.matchGems(card.gem_open, filters.gem_open) &&
       this.matchGems(card.gem_close, filters.gem_close) &&
       this.matchErrata(card, filters.errata) &&
-      this.matchBanStatus(card, filters.is_ban)
+      this.matchBanStatus(card, filters.is_ban) &&
+      this.matchCollection(card, filters.is_in_collection)
     );
   }
 
@@ -104,5 +107,10 @@ export class FilterCardsUseCase {
       (uiGem) => gemsMapping[uiGem]
     ) as Gems[];
     return mappedFilterGems.every((gem) => cardGems.includes(gem));
+  }
+
+  private matchCollection(card: Card, isActive: boolean): boolean {
+    if (!isActive) return true;
+    return this.collectionService.isInCollection(card.id);
   }
 }

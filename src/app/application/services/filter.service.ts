@@ -18,6 +18,7 @@ export class FilterService {
     is_ban: false,
     gem_open: [],
     gem_close: [],
+    is_in_collection: false,
   };
   private filtersSubject = new BehaviorSubject<CardFilters>(
     this.initialFilters
@@ -29,5 +30,9 @@ export class FilterService {
     const updatedFilters = { ...currentFilters, ...newFilters };
     console.table(updatedFilters);
     this.filtersSubject.next(updatedFilters);
+  }
+
+  resetFilters() {
+    this.filtersSubject.next(this.initialFilters);
   }
 }

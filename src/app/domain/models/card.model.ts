@@ -36,6 +36,7 @@ export type CardFilters = {
   is_ban?: boolean;
   gem_open: GemsContentNamesType[];
   gem_close: GemsContentNamesType[];
+  is_in_collection: boolean;
 };
 
 export const effectsMapping = {
