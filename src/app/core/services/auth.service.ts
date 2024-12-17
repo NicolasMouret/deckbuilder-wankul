@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { AuthResponse, Session } from '@supabase/supabase-js';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { AuthResponse } from '@supabase/supabase-js';
 import { from, Observable } from 'rxjs';
 import { SupabaseAuthRepository } from '../supabase/auth.supabase';
 
@@ -23,10 +23,20 @@ export interface AuthInterface {
 })
 export class AuthService implements AuthInterface {
   private readonly authRepository = inject(SupabaseAuthRepository);
-  _session: Session | null = null;
+  private _userId: string | null = null;
+  private userId = signal<string | null>(null);
 
-  get session(): Session | null {
-    return this._session;
+  constructor() {
+    this.initializeUserId();
+  }
+
+  private async initializeUserId() {
+    this._userId = await this.authRepository.getUserId();
+    this.userId.set(this._userId);
+  }
+
+  getUserId(): WritableSignal<string | null> {
+    return this.userId;
   }
 
   authChanges(callback: (event: any, session: any) => void) {

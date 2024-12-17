@@ -13,10 +13,6 @@ export class NavbarComponent {
   protected isDropdownOpen = false;
   session: Session | null = null;
 
-  constructor() {
-    this.session = this.auth.session;
-  }
-
   ngOnInit(): void {
     this.auth.authChanges((event, session) => {
       this.session = session;

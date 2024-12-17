@@ -7,9 +7,7 @@ import {
   createClient,
   Session,
   SupabaseClient,
-  UserResponse,
 } from '@supabase/supabase-js';
-import { from, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -26,7 +24,7 @@ export class SupabaseAuthRepository {
     );
   }
 
-  get session(): AuthSession | null {
+  getSession(): AuthSession | null {
     this.supabase.auth.getSession().then(({ data }) => {
       this._session = data.session;
     });
@@ -59,8 +57,11 @@ export class SupabaseAuthRepository {
     return this.supabase.auth.onAuthStateChange(callback);
   }
 
-  getUser(): Observable<UserResponse> {
-    const response = this.supabase.auth.getUser();
-    return from(response);
+  async getUserId(): Promise<string | null> {
+    const {
+      data: { user },
+    } = await this.supabase.auth.getUser();
+    if (user === null) return null;
+    return user.id;
   }
 }

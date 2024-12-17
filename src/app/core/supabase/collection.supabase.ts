@@ -24,7 +24,7 @@ export class SupabaseCollectionRepository implements CollectionRepository {
     );
   }
 
-  async getCollectionByUserId(userId: number): Promise<UserCollection> {
+  async getCollectionByUserId(userId: string): Promise<UserCollection> {
     const { data, error } = (await this.supabase
       .from('collections')
       .select('*')
@@ -45,7 +45,7 @@ export class SupabaseCollectionRepository implements CollectionRepository {
     return cards;
   }
 
-  async addCardToCollection(userId: number, cardId: number): Promise<void> {
+  async addCardToCollection(userId: string, cardId: number): Promise<void> {
     const { data } = (await this.supabase
       .from('collections')
       .select('*')
@@ -67,7 +67,7 @@ export class SupabaseCollectionRepository implements CollectionRepository {
   }
 
   async removeCardFromCollection(
-    userId: number,
+    userId: string,
     cardId: number
   ): Promise<void> {
     const { data } = (await this.supabase
@@ -90,7 +90,7 @@ export class SupabaseCollectionRepository implements CollectionRepository {
   }
 
   private async createEntryInCollection(
-    userId: number,
+    userId: string,
     cardId: number
   ): Promise<void> {
     await this.supabase.from('collections').insert([

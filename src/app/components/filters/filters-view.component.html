@@ -1,5 +1,10 @@
 <div class="flex justify-start lg:justify-around basis-2/5">
-  <app-name-filter (searchOutput)="onNameSearchChange($event)" />
+  <div class="flex flex-col gap-4">
+    <app-name-filter (searchOutput)="onNameSearchChange($event)" />
+    @if (collectionFilter()) {
+    <app-collection-filter />
+    }
+  </div>
   <app-gems-filter
     class="justify-center hidden gap-2 p-2 border rounded-lg shadow-sm border-base-300 lg:flex h-fit bg-base-200 hover:border-primary/50"
   />
@@ -14,7 +19,7 @@
       <app-meta-view class="flex gap-2" />
       <app-gameplay-view class="flex gap-2 mt-2 md:mt-0" />
     </div>
-    <div class="flex flex-col gap-2 md:flex-row md:items-start">
+    <div class="flex flex-col md:flex-row md:items-start">
       <div
         class="mt-4 border shadow-sm collapse collapse-plus bg-base-200 border-base-300"
         [ngClass]="{ hidden: !isMainOpen }"

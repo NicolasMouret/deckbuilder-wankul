@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../../core/services/auth.service';
 import { SupabaseCollectionRepository } from '../../core/supabase/collection.supabase';
 import { UserCollection } from '../../domain/models/collection.model';
 
@@ -7,23 +8,39 @@ import { UserCollection } from '../../domain/models/collection.model';
   providedIn: 'root',
 })
 export class CollectionService {
+  private authService = inject(AuthService);
+  private userId = this.authService.getUserId();
   private collectionRepository = inject(SupabaseCollectionRepository);
   private collectionSubject = new BehaviorSubject<UserCollection>([]);
-  private userCollection = this.collectionSubject.asObservable();
+  userCollection = this.collectionSubject.asObservable();
 
-  getUserCollectionById(userId: number): Observable<UserCollection> {
+  constructor() {
+    this.initializeCollection();
+  }
+
+  private initializeCollection(): void {
+    this.setUserCollectionById(this.userId());
+  }
+
+  private setUserCollectionById(userId: string | null): void {
+    if (!userId) {
+      this.collectionSubject.next([]);
+      return;
+    }
     this.collectionRepository
       .getCollectionByUserId(userId)
       .then((collection) => this.collectionSubject.next(collection));
-
-    return this.userCollection;
   }
 
-  addCardToCollection(userId: number, cardId: number): void {
+  addCardToCollection(userId: string, cardId: number): void {
     this.collectionRepository.addCardToCollection(userId, cardId);
   }
 
-  removeCardFromCollection(userId: number, cardId: number): void {
+  removeCardFromCollection(userId: string, cardId: number): void {
     this.collectionRepository.removeCardFromCollection(userId, cardId);
+  }
+
+  isInCollection(cardId: number): boolean {
+    return this.collectionSubject.value.some((card) => card.cardId === cardId);
   }
 }

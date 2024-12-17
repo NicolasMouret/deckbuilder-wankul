@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FilterService } from '../../application/services/filter.service';
 import { CardsViewComponent } from '../../components/cards/cards-view/cards-view.component';
 import { FiltersViewComponent } from '../../components/filters/filters-view.component';
 
@@ -8,4 +9,10 @@ import { FiltersViewComponent } from '../../components/filters/filters-view.comp
   imports: [CardsViewComponent, FiltersViewComponent],
   templateUrl: './home.component.html',
 })
-export class HomeComponent {}
+export class HomeComponent {
+  filterService = inject(FilterService);
+
+  ngOnInit() {
+    this.filterService.resetFilters();
+  }
+}
